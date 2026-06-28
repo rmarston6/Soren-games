@@ -1,0 +1,17 @@
+# Bugs and Missing Implementations — found while reading game.js (not fixed)
+
+These were found while reading through the full source ahead of the session-01 playthrough. Documenting only, per instructions — none of these have been changed.
+
+1. **`cmdPhotograph` — missing location guard on the "doorframe" subject branch.** The "bridge" branch checks `state.currentLocation === "bridge"` before naming the subject "the bridge itself," but the "doorframe" branch only checks `/doorframe/i.test(rest)` with no equivalent `state.currentLocation === "river"` guard. A player anywhere in the city who types a photograph command containing the word "doorframe" gets "You photograph the painted doorframe," even nowhere near the River Quarter.
+
+2. **`cmdPhotograph` — unvalidated arbitrary text stored as a photographed subject.** When `rest` doesn't match any known item or the bridge/doorframe special cases, the raw input text is pushed verbatim into `state.flags.photographs`. There's no check that the player photographed something real. Nonsense input (e.g. "photograph my own feelings") ends up listed as a genuine photographed subject and can surface later in the procedurally generated ending text as if it were meaningful content.
+
+3. **`cmdLeave` — dropped items "teleport" to the wrong location.** `cmdLeave` pushes the dropped item key into `state.locationItems[state.currentLocation]` — the player's *current* location — rather than the location the item was originally taken from. An item picked up in one part of the city and set down elsewhere will appear to have always belonged at the drop location, with no geographic continuity.
+
+4. **Dead/unused state flags: `flags.gotCharts` and `flags.tomasBlocked`.** Both are initialized in `freshState()` but never read or written anywhere else in the file. They appear to be vestigial from an earlier version of the gating logic (charts gating now runs entirely through `flags.satWithMaret`) and currently do nothing.
+
+5. **`cmdSit` — inconsistent closing flavor line for Tomas.** The Maret and Idriss sit branches each print a closing flavor line after `spendHours` completes the sit. The Tomas branch (which costs the most hours, 20) spends the hours and updates flags but has no equivalent closing line, which reads as an abrupt drop-off compared to the other two characters' sit interactions.
+
+6. **"LISTEN" verb is a recognized but effectively unimplemented stub.** `handleCommand`'s switch statement has a `case "listen":` that prints one generic, context-free line regardless of location or state, costs no hours, and isn't listed in `cmdHelp()`'s printed verb list. It parses as a real command but has no actual content behind it anywhere in the game.
+
+7. **`cmdGo` can skip a location's description/witness opportunity entirely on the final hour.** Travel cost is deducted via `spendHours` before `state.visited[key]` is set and before `describeLocation(firstTime)` runs, and there's an early `if (state.gameOver) return;` check immediately after the spend. If the travel cost itself brings hours to exactly 0, the function returns before ever marking the destination visited or printing its description — the player arrives at a new location and the game ends without that location ever being shown or witnessed.
