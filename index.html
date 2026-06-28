@@ -2,16 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>The Flood Archivist</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="terminal">
-    <div id="output" aria-live="polite"></div>
-    <div id="input-line">
-      <span id="prompt">&gt;</span>
-      <input id="cmd-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="command input">
+  <div id="app">
+    <header id="topbar">
+      <span id="title">THE FLOOD ARCHIVIST</span>
+      <span id="hours-readout">HOURS REMAINING: <span id="hours-value">72</span></span>
+      <button id="handcart-toggle" aria-expanded="false">HANDCART</button>
+    </header>
+
+    <div id="main">
+      <div id="terminal">
+        <div id="output" aria-live="polite"></div>
+        <div id="input-line">
+          <span id="prompt">&gt;</span>
+          <input id="cmd-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="command input">
+        </div>
+      </div>
+
+      <aside id="handcart-panel" aria-label="The Handcart">
+        <h2>THE HANDCART</h2>
+        <div id="handcart-weight"></div>
+        <ul id="handcart-list"></ul>
+      </aside>
     </div>
   </div>
   <script src="game.js"></script>

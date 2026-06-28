@@ -1,27 +1,36 @@
 # The Flood Archivist
 
-A text-based browser game with a terminal-style UI. You are the last archivist in the
-city of Veshara, with minutes left before the levees fail. Explore the archive, decide
-what to carry, and reach the roof before the water decides for you.
+A text-based browser game with a terminal-style UI. You are Vale, the last archivist
+of Vellanthor, in the 72 hours before controlled flooding takes the city. Decide what
+persists.
+
+This is not a puzzle game — there are no correct answers, only a handcart with limited
+room and a city full of people, objects, and stories asking to be carried, or witnessed,
+or left behind.
 
 Play in any browser: open `index.html`, or visit the GitHub Pages deployment of this
 repo once enabled.
 
 ## Commands
 
-- `look` — describe where you are
-- `go <direction>` (or `n/s/e/w/u/d`) — move around the building
-- `examine <item>` — inspect or read something
-- `take <item>` — pick something up (5-item carry limit)
-- `drop <item>` — leave something behind
-- `unlock <item> with <key>` — open something locked
-- `inventory` / `i` — see what you're carrying
-- `status` — check the water level and time elapsed
-- `evacuate` — from the roof hatch, end the game with what you're carrying
-- `restart` — play again
+- `look` / `l` — describe where you are
+- `go [place]` — archive, river quarter, university annex, market, residential blocks, bridge
+- `take [thing]` / `leave [thing]` — manage the handcart
+- `examine` / `x [thing]`, `read [thing]` — look closer
+- `talk to [person]` — a conversation
+- `sit with [person]` — slower, costs more time, opens more
+- `photograph [thing]` — if you're carrying the camera (limited film)
+- `handcart` / `inventory` / `i` — what you're carrying
+- `time` — hours remaining
+- `wait` — let an hour pass
+- `witness` — write a brief observation about where you are
+- `new game` — start over
 
-Every action but looking, examining, checking inventory/status, and help costs time —
-and the water never stops rising.
+Significant actions cost hours, but the exact cost is never shown — only the running
+counter. Progress autosaves to `localStorage` between sessions.
+
+When the 72 hours run out, the game generates **WHAT YOU CARRIED**: a short prose
+summary of what you saved, what you witnessed, and what you left behind.
 
 ## Deploying to GitHub Pages
 

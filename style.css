@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
 * {
   box-sizing: border-box;
 }
@@ -8,50 +6,97 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #02100a;
-  color: #4fff8b;
-  font-family: 'VT323', 'Courier New', monospace;
+  background: #0d0d0d;
+  color: #c8a96e;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid #3a2f1f;
+  flex-shrink: 0;
+}
+
+#title {
+  letter-spacing: 0.1em;
+  font-size: 15px;
+  color: #c8a96e;
+}
+
+#hours-readout {
+  font-size: 13px;
+  color: #8a7350;
+}
+
+#hours-value {
+  color: #c8a96e;
+}
+
+#handcart-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid #6e8ec8;
+  color: #6e8ec8;
+  font-family: inherit;
+  font-size: 12px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+#main {
+  flex: 1;
+  display: flex;
+  min-height: 0;
 }
 
 #terminal {
-  height: 100vh;
-  width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 24px 20px 16px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(ellipse at center, #03150e 0%, #010a06 100%);
-  box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.8);
+  padding: 16px 20px;
+  min-height: 0;
 }
 
 #output {
   flex: 1;
   overflow-y: auto;
   white-space: pre-wrap;
-  font-size: 19px;
-  line-height: 1.4;
-  text-shadow: 0 0 4px rgba(79, 255, 139, 0.6);
+  font-size: 16px;
+  line-height: 1.55;
+  scroll-behavior: smooth;
 }
 
 #output::-webkit-scrollbar {
   width: 8px;
 }
 #output::-webkit-scrollbar-thumb {
-  background: #1a5c3a;
+  background: #3a2f1f;
+}
+
+.line-block {
+  margin-bottom: 10px;
 }
 
 #input-line {
   display: flex;
   align-items: center;
-  padding-top: 8px;
-  font-size: 19px;
+  padding-top: 10px;
+  border-top: 1px solid #2a2118;
+  font-size: 16px;
 }
 
 #prompt {
-  color: #4fff8b;
+  color: #6e8ec8;
   margin-right: 8px;
-  text-shadow: 0 0 4px rgba(79, 255, 139, 0.6);
 }
 
 #cmd-input {
@@ -59,29 +104,80 @@ html, body {
   background: transparent;
   border: none;
   outline: none;
-  color: #4fff8b;
+  color: #c8a96e;
   font-family: inherit;
-  font-size: 19px;
-  text-shadow: 0 0 4px rgba(79, 255, 139, 0.6);
-  caret-color: #4fff8b;
+  font-size: 16px;
+  caret-color: #c8a96e;
 }
 
-.line-room { color: #9fffc6; }
-.line-warn { color: #ffd24f; }
-.line-danger { color: #ff5c5c; }
-.line-system { color: #5fd0ff; }
-.line-success { color: #c6ff4f; }
+#handcart-panel {
+  width: 260px;
+  flex-shrink: 0;
+  border-left: 1px solid #3a2f1f;
+  padding: 16px;
+  overflow-y: auto;
+}
 
-#terminal::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0px,
-    rgba(0, 0, 0, 0) 2px,
-    rgba(0, 0, 0, 0.12) 3px
-  );
-  mix-blend-mode: multiply;
+#handcart-panel h2 {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  margin: 0 0 6px;
+  color: #6e8ec8;
+}
+
+#handcart-weight {
+  font-size: 12px;
+  color: #8a7350;
+  margin-bottom: 10px;
+}
+
+#handcart-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+#handcart-list li {
+  border-bottom: 1px solid #1f1810;
+  padding: 4px 0;
+}
+
+#handcart-list .empty {
+  color: #5a4c38;
+  font-style: italic;
+}
+
+.line-location { color: #e2c587; }
+.line-person { color: #d9b46a; }
+.line-witness { color: #6e8ec8; }
+.line-system { color: #8a7350; }
+.line-ending { color: #e2c587; }
+.line-quiet { color: #6b5b3e; }
+.line-cmd { color: #5a7aa8; }
+
+@media (max-width: 760px) {
+  #handcart-toggle {
+    display: inline-block;
+  }
+  #main {
+    position: relative;
+  }
+  #handcart-panel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 80%;
+    max-width: 320px;
+    background: #0d0d0d;
+    transform: translateX(100%);
+    transition: transform 0.2s ease;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.6);
+    z-index: 10;
+  }
+  #handcart-panel.open {
+    transform: translateX(0);
+  }
 }
