@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #02100a;
+  color: #4fff8b;
+  font-family: 'VT323', 'Courier New', monospace;
+}
+
+#terminal {
+  height: 100vh;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(ellipse at center, #03150e 0%, #010a06 100%);
+  box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.8);
+}
+
+#output {
+  flex: 1;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-size: 19px;
+  line-height: 1.4;
+  text-shadow: 0 0 4px rgba(79, 255, 139, 0.6);
+}
+
+#output::-webkit-scrollbar {
+  width: 8px;
+}
+#output::-webkit-scrollbar-thumb {
+  background: #1a5c3a;
+}
+
+#input-line {
+  display: flex;
+  align-items: center;
+  padding-top: 8px;
+  font-size: 19px;
+}
+
+#prompt {
+  color: #4fff8b;
+  margin-right: 8px;
+  text-shadow: 0 0 4px rgba(79, 255, 139, 0.6);
+}
+
+#cmd-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #4fff8b;
+  font-family: inherit;
+  font-size: 19px;
+  text-shadow: 0 0 4px rgba(79, 255, 139, 0.6);
+  caret-color: #4fff8b;
+}
+
+.line-room { color: #9fffc6; }
+.line-warn { color: #ffd24f; }
+.line-danger { color: #ff5c5c; }
+.line-system { color: #5fd0ff; }
+.line-success { color: #c6ff4f; }
+
+#terminal::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.12) 3px
+  );
+  mix-blend-mode: multiply;
+}
